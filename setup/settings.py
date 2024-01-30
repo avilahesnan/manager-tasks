@@ -14,6 +14,7 @@ from pathlib import Path, os
 from dotenv import load_dotenv
 from django.contrib.messages import constants as messages
 
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.tasks.apps.TasksConfig',
+    'apps.users.apps.UsersConfig',
     'storages',
 ]
 
@@ -109,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'America/Fortaleza'
 

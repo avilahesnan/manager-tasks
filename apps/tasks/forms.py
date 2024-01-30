@@ -3,15 +3,30 @@ from apps.tasks.models import Task
 
 
 class TaskForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        edit_mode = kwargs.pop('edit_mode', False)
+        super(TaskForm, self).__init__(*args, **kwargs)
+
+        self.fields['user'].initial = user
+        self.fields['user'].widget = forms.HiddenInput()
+
+        if not edit_mode:
+            self.fields.pop('is_completed')
+        else:
+            self.fields['is_completed'].widget.attrs['class'] = 'form-checkbox'
+
+
     class Meta:
         model = Task
-        exclude = ['is_completed', 'user']
+        exclude = []
         labels = {
             'name': 'Name',
             'category': 'Category',
             'subject': 'Subject',
             'description': 'Description',
             'term': 'Term',
+            'user': 'User',
         }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-input'}),
@@ -25,4 +40,5 @@ class TaskForm(forms.ModelForm):
                     'class': 'form-input'
                 }
             ),
+            'user': forms.HiddenInput(),
         }

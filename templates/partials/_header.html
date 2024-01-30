@@ -6,5 +6,32 @@
                 <span>Tasks</span>
             </a>
         </h1>
+        <div class="header-links">
+        {% if request.user.is_authenticated %}
+            <h1>
+                <a class="logout-link" href="{% url "users:logout" %}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </h1>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <h1>
+                <a class="new-link" href="{% url "tasks:new_task" %}">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>New Task</span>
+                </a>
+            </h1>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <h1>
+                <a class="tasks-link" href="{% url "tasks:all_tasks" %}">
+                    <i class="fa-solid fa-border-all"></i>
+                    <span>All Tasks</span>
+                </a>
+            </h1>
+        {% endif %}
+        </div>
     </div>
+    {% include "partials/_messages.html" %}
 </header>

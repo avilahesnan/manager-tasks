@@ -1,0 +1,14 @@
+{% extends "shared/base.html" %}
+{% load static %}
+{% block title %}Register | {% endblock title%}
+{% block content %}
+{% include "partials/_header.html" %}
+<div class="content-wrapper">
+    <form action="{% url "users:register" %}" class="form-container" method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="form-button">Register</button>
+      <a href="{% url "users:login" %}"><button type="button" class="form-button">Log in</button></a>
+    </form>
+</div>
+{% endblock content %}
