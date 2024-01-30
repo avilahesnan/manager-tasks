@@ -1,0 +1,13 @@
+{% extends "shared/base.html" %}
+{% load static %}
+{% block title %}New Task | {% endblock title%}
+{% block content %}
+{% include "partials/_header.html" %}
+<div class="content-wrapper">
+    <form action="{% url "tasks:new_task" %}" class="form-container" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="form-button">Register New Task</button>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends "shared/base.html" %}
+{% load static %}
+{% block title %}Home | {% endblock title%}
+{% block content %}
+{% include "partials/_header.html" %}
+{% include "partials/_search.html" %}
+<div class="main-content main-content-list container">
+    {% for task in tasks %}
+        {% include "partials/_task.html" %}
+    {% endfor %}
+</div>
+{% endblock content %}

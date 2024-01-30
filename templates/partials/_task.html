@@ -1,0 +1,77 @@
+{% load static %}
+<div class="task task-list-item">
+    <div class="task-cover">
+    {% if task.category == 'PROGRAMMING' %}
+        <img src="{% static 'assets/images/programming.png' %}" alt="task">
+    {% elif task.category == 'COMPUTER SCIENCE' %}
+        <img src="{% static 'assets/images/computer-science.png' %}" alt="task">
+    {% elif task.category == 'MATHEMATICS' %}
+        <img src="{% static 'assets/images/mathematics.png' %}" alt="task">
+    {% elif task.category == 'PORTUGUESE' %}
+        <img src="{% static 'assets/images/portuguese.png' %}" alt="task">
+    {% elif task.category == 'ENGLISH' %}
+        <img src="{% static 'assets/images/english.png' %}" alt="task">
+    {% elif task.category == 'LEGISLATION' %}
+        <img src="{% static 'assets/images/legislation.png' %}" alt="task">
+    {% else %}
+        <img src="{% static 'assets/images/not-specified.png' %}" alt="task">
+    {% endif %}
+    </div>
+    <div class="task-name-container">
+        <a href="{% url "tasks:task" task.id %}">
+            <h2 class="task-name">{{ task.name }}</h2>
+        </a>
+    </div>
+    <div class="task-category">
+        <span class="task-category-item"><i class="fa-solid fa-book"></i>
+            {{ task.category }}
+        </span>
+        <span class="task-category-item"><i class="fa-solid fa-calendar-days"></i>
+            {{ task.created_at|date:"d/m/Y" }}
+        </span>
+    </div>
+    <div class="task-subject">
+        <a href="{% url "tasks:task" task.id %}">
+            <p class="text-subject">
+                {{ task.subject }}
+            </p>
+        </a>
+    </div>
+    <div class="task-meta-container">
+        <div class="task-meta task-term">
+            <h3 class="task-meta-title"><i class="fa-solid fa-calendar-days icon"></i>Term</h3>
+            <div class="task-meta-text">
+                {{ task.term|date:"d/m/Y" }}
+            </div>
+        </div>
+        
+        <div class="task-meta task-completed">
+        {% if task.is_completed %}
+            <h3 class="task-meta-title"><i class="fa-solid fa-check icon"></i>Completed</h3>
+            <div class="task-meta-text">
+                {{ task.updated_at|date:"d/m/Y" }}
+            </div>
+        {% else %}
+            <h3 class="task-meta-title"><i class="fa-solid fa-xmark icon"></i>Not Completed</h3>
+            <div class="task-meta-text">
+                Undated
+            </div>
+        {% endif %}
+        </div>
+    </div>
+    {% if is_detail_page is not True %}
+        <footer class="task-footer">
+            <a href="{% url "tasks:edit_task" task.id %}" class="button button-dark button-full-width">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>Edit</span>
+            </a>
+        </footer>
+    {% endif %}
+    {% if is_detail_page is True %}
+        <div class="task-description">
+            <p>
+                {{ task.description }}
+            </p>
+        </div>
+    {% endif %}
+</div>
