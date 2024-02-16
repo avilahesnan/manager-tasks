@@ -9,35 +9,37 @@ def index(request):
     if not request.user.is_authenticated:
         messages.error(request, 'No users are logged in!')
         return redirect('users:login')
-    
+
     user = request.user
     current_date = timezone.now()
-    tasks = Task.objects.filter(term__lt=current_date + timezone.timedelta(days=7), user=user, is_completed=False).order_by('term')
+    tasks = Task.objects.filter(  # pylint: disable=no-member
+        term__lt=current_date + timezone.timedelta(days=7),
+        user=user, is_completed=False).order_by('term')
     return render(request, 'tasks/index.html', {'tasks': tasks})
 
 
-def task(request, id):
-    task = get_object_or_404(Task, id=id)
-    return render(request, 'tasks/task_view.html', {'is_detail_page': True, 'task': task})
+def task(request, id):  # pylint: disable=redefined-builtin
+    task = get_object_or_404(Task, id=id)  # pylint: disable=redefined-outer-name # noqa: E501
+    return render(request, 'tasks/task_view.html', {'is_detail_page': True, 'task': task})  # pylint: disable=line-too-long # noqa: E501
 
 
 def all_tasks(request):
     if not request.user.is_authenticated:
         messages.error(request, 'No users are logged in!')
         return redirect('users:login')
-    
+
     user = request.user
-    tasks = Task.objects.filter(user=user).order_by('term')
-    return render(request, 'tasks/index.html', {'tasks': tasks}) 
+    tasks = Task.objects.filter(user=user).order_by('term')  # pylint: disable=no-member # noqa: E501
+    return render(request, 'tasks/index.html', {'tasks': tasks})
 
 
 def search(request):
     if not request.user.is_authenticated:
         messages.error(request, 'No users are logged in!')
         return redirect('users:login')
-    
+
     user = request.user
-    tasks = Task.objects.filter(user=user).order_by('term')
+    tasks = Task.objects.filter(user=user).order_by('term')  # pylint: disable=no-member, # noqa: E501
     if 'search' in request.GET:
         name_search = request.GET['search']
         if name_search:
@@ -50,15 +52,14 @@ def new_task(request):
     if not request.user.is_authenticated:
         messages.error(request, 'No users are logged in!')
         return redirect('users:login')
-    
+
     user = request.user
     if request.method == 'POST':
         form = TaskForm(request.POST, user=user)
         if form.is_valid():
-            task = form.save(commit=False)
+            task = form.save(commit=False)  # pylint: disable=redefined-outer-name # noqa: E501
             task.user = user
             task.save()
-
             messages.success(request, 'Task registered successfully!')
             return redirect('tasks:index')
     else:
@@ -67,16 +68,16 @@ def new_task(request):
     return render(request, 'tasks/new_task.html', {'form': form})
 
 
-def edit_task(request, id):
+def edit_task(request, id):  # pylint: disable=redefined-builtin
     if not request.user.is_authenticated:
         messages.error(request, 'No users are logged in!')
         return redirect('users:login')
 
     user = request.user
     try:
-        task = Task.objects.get(id=id, user=user)
-    except Task.DoesNotExist:
-        messages.error(request, 'Task not found or you do not have permission to edit it.')
+        task = Task.objects.get(id=id, user=user)  # pylint: disable=redefined-outer-name,disable=no-member # noqa: E501
+    except Task.DoesNotExist:  # pylint: disable=no-member # noqa: E501
+        messages.error(request, 'Task not found or you do not have permission to edit it.')   # pylint: disable=line-too-long # noqa: E501
         return redirect('tasks:index')
 
     if request.method == 'POST':

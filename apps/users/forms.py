@@ -77,12 +77,12 @@ class RegisterForm(forms.Form):
 
         if name:
             name = name.strip()
-            
+
             if ' ' in name:
-                raise forms.ValidationError('Spaces are not allowed in this field!')
+                raise forms.ValidationError('Spaces are not allowed in this field!')  # noqa : E501
             else:
                 return name
-            
+
     def clean_password_2(self):
         password_1 = self.cleaned_data.get('password_1')
         password_2 = self.cleaned_data.get('password_2')

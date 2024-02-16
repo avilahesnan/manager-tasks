@@ -16,7 +16,6 @@ class TaskForm(forms.ModelForm):
         else:
             self.fields['is_completed'].widget.attrs['class'] = 'form-checkbox'
 
-
     class Meta:
         model = Task
         exclude = []
@@ -32,7 +31,7 @@ class TaskForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-input'}),
             'categoria': forms.Select(attrs={'class': 'form-select'}),
             'subject': forms.TextInput(attrs={'class': 'form-input'}),
-            'description': forms.Textarea(attrs={'class': 'form-input form-textarea'}),
+            'description': forms.Textarea(attrs={'class': 'form-input form-textarea'}),  # noqa : E501
             'term': forms.DateInput(
                 format='%d/%m/%Y',
                 attrs={

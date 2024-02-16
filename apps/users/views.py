@@ -9,7 +9,7 @@ def login(request):
     if request.user.is_authenticated:
         messages.error(request, 'You are already logged in!')
         return redirect('tasks:index')
-    
+
     form = LoginForm
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -26,7 +26,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, f'{name} logged in successfully!')
-            return redirect('tasks:index') 
+            return redirect('tasks:index')
         else:
             messages.error(request, 'Error! Unable to log in!')
             return redirect('users:login')
@@ -44,7 +44,7 @@ def register(request):
     if request.user.is_authenticated:
         messages.error(request, 'You are already logged in!')
         return redirect('tasks:index')
-    
+
     form = RegisterForm
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -53,18 +53,18 @@ def register(request):
             name = form['name_register'].value()
             email = form['email'].value()
             password = form['password_1'].value()
-            
+
             if User.objects.filter(username=name).exists():
-                messages.error(request, 'Error! User already has registration!')
+                messages.error(request, 'Error! User already has registration!')  # noqa : E501
                 return redirect('users:register')
-            
+
             user = User.objects.create_user(
                 username=name,
                 email=email,
                 password=password
             )
             user.save()
-            messages.success(request, f'{name} you have been successfully registered!')
+            messages.success(request, f'{name} you have been successfully registered!')  # noqa : E501
             return redirect('users:login')
 
     return render(request, 'users/register.html', {'form': form})

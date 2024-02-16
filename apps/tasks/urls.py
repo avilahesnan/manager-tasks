@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.tasks.views import index, task, new_task, edit_task, search, all_tasks
+from apps.tasks.views import index, task, new_task, edit_task, search, all_tasks  # noqa: E501
 
 
 app_name = 'tasks'

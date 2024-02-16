@@ -17,17 +17,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Task',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),  # noqa : E501
                 ('name', models.CharField(max_length=50)),
-                ('category', models.CharField(choices=[('PROGRAMMING', 'programming'), ('COMPUTER SCIENCE', 'computer science'), ('MATHEMATICS', 'mathematics'), ('PORTUGUESE', 'portuguese'), ('ENGLISH', 'english'), ('LEGISLATION', 'legislation')], default='NOT SPECIFIED', max_length=100)),
+                ('category', models.CharField(choices=[('PROGRAMMING', 'programming'), ('COMPUTER SCIENCE', 'computer science'), ('MATHEMATICS', 'mathematics'), ('PORTUGUESE', 'portuguese'), ('ENGLISH', 'english'), ('LEGISLATION', 'legislation')], default='NOT SPECIFIED', max_length=100)),  # noqa : E501
                 ('subject', models.CharField(max_length=70)),
                 ('description', models.TextField()),
                 ('term', models.DateField()),
                 ('is_completed', models.BooleanField(default=False)),
-                ('cover', models.ImageField(blank=True, upload_to='tasks/covers/%Y/%m/%d/')),
+                ('cover', models.ImageField(blank=True, upload_to='tasks/covers/%Y/%m/%d/')),  # noqa : E501
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='user', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='user', to=settings.AUTH_USER_MODEL)),   # noqa : E501
             ],
         ),
     ]
