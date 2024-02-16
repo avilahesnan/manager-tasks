@@ -15,7 +15,10 @@ class Task(models.Model):
     ]
 
     name = models.CharField(max_length=50, null=False, blank=False)
-    category = models.CharField(max_length=100, choices=OPTIONS_CATEGORIES, default='NOT SPECIFIED')  # pylint: disable=line-too-long # noqa: E501
+    category = models.CharField(
+        max_length=100,
+        choices=OPTIONS_CATEGORIES,
+        default='NOT SPECIFIED')
     subject = models.CharField(max_length=70, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
     term = models.DateField()
